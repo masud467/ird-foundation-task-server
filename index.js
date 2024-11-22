@@ -10,8 +10,8 @@ const subcategoriesRouter = require('./routes/subcategories');
 const duasRouter = require('./routes/duas');
 
 app.use('/categories', categoriesRouter);
-app.use('/api/subcategories', subcategoriesRouter);
-app.use('/api/duas', duasRouter);
+app.use('/subcategories', subcategoriesRouter);
+app.use('/duas', duasRouter);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the API!');
