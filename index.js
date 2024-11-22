@@ -7,9 +7,11 @@ app.use(express.json());
 const cors = require('cors');
 
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
+  origin: ['http://localhost:3000','https://ird-foundation-task.web.app','https://ird-foundation-task.firebaseapp.com'],
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
+
 
 // Routes
 const categoriesRouter = require('./routes/categories');
