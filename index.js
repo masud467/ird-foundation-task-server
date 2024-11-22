@@ -4,6 +4,13 @@ const app = express();
 // Middleware
 app.use(express.json());
 
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+
 // Routes
 const categoriesRouter = require('./routes/categories');
 const subcategoriesRouter = require('./routes/subcategories');
