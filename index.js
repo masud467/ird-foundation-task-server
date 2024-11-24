@@ -1,10 +1,16 @@
 const express = require('express');
 const app = express();
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 600 }); 
+
+
 
 // Middleware
 app.use(express.json());
 
 const cors = require('cors');
+
+
 
 app.use(cors({
   origin: ['http://localhost:3000','https://ird-foundation-task.web.app','https://ird-foundation-task.firebaseapp.com'],
@@ -12,15 +18,33 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
+// Cache middleware
+const cacheMiddleware = (duration) => (req, res, next) => {
+  const key = req.originalUrl;
+  const cachedResponse = cache.get(key);
+  
+  if (cachedResponse) {
+    return res.json(cachedResponse);
+  }
+  
+  res.originalJson = res.json;
+  res.json = (body) => {
+    cache.set(key, body, duration);
+    res.originalJson(body);
+  };
+  next();
+};
+
+
 
 // Routes
 const categoriesRouter = require('./routes/categories');
 const subcategoriesRouter = require('./routes/subcategories');
 const duasRouter = require('./routes/duas');
 
-app.use('/categories', categoriesRouter);
-app.use('/subcategories', subcategoriesRouter);
-app.use('/duas', duasRouter);
+app.use('/categories', cacheMiddleware(3000), categoriesRouter);
+app.use('/subcategories', cacheMiddleware(3000), subcategoriesRouter);
+app.use('/duas', cacheMiddleware(3000), duasRouter);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the API!');
