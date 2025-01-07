@@ -12,8 +12,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      // "https://ird-foundation-task.web.app",
-      // "https://ird-foundation-task.firebaseapp.com",
+      "https://ird-foundation-task-client-zf6l.vercel.app"
     ],
     credentials: true,
     optionsSuccessStatus: 200,
