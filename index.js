@@ -10,10 +10,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://ird-foundation-task-client-zf6l.vercel.app",
-    ],
+    origin: ["http://localhost:3000", "https://ird-f-task-client.vercel.app"],
     credentials: true,
     optionsSuccessStatus: 200,
   })
