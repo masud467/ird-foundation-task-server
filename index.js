@@ -5,7 +5,6 @@ const cache = new NodeCache({ stdTTL: 600 });
 
 // Middleware
 app.use(express.json());
-
 const cors = require("cors");
 
 app.use(
