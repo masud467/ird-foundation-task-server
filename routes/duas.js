@@ -5,7 +5,7 @@ const router = express.Router();
 // Get duas by subcategory ID
 router.get("/", (req, res) => {
   const { subcategoryId } = req.params;
-  const query = "SELECT * FROM dua"; // Replace with your actual table name and column
+  const query = "SELECT * FROM dua"; 
   db.all(query, [subcategoryId], (err, rows) => {
     if (err) {
       res.status(500).json({ error: "Database query failed" });
